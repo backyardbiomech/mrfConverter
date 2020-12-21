@@ -7,6 +7,7 @@ from pathlib import Path
 import subprocess
 import argparse
 import shutil
+import bz2
 
 # example call: python mrfConverter.py ./Red.mrf -crf 21
 
