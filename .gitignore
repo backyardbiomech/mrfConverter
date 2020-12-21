@@ -1,6 +1,7 @@
 *.tiff
 *.mrf
 *.mp4
+*.bz2
 *-checkpoint.ipynb
 .ipynb_checkpoints/
 Red/

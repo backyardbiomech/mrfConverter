@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 from pathlib import Path
 import subprocess
 import argparse
+import shutil
 
 # example call: python mrfConverter.py ./Red.mrf -crf 21
 
@@ -51,7 +52,7 @@ def cvtMrf(fpath, extractframes=True, savevid=True, crf=1):
     # to use extracted frames, set extractframes=False
     # to not save a new video, set savevid=False
     # crf is an int (1-51) for video compression (1 ~ lossless, 21 ~ very good compression with little visual loss)
-    fp = Path(fpath)
+    fp = fpath
     newdir = fp.parent / fp.stem
     newdir.mkdir(exist_ok=True)
     # get info
@@ -83,4 +84,11 @@ if __name__ == "__main__":
     parser.add_argument('-crf', default = 1, type =int, help='compression ratio for video (1-51)')
     args = parser.parse_args()
 
-    cvtMrf(args.filename, extractframes=args.exfr, savevid=args.vid, crf=args.crf)
+    fname=Path(args.filename)
+    #if it's compressed, uncompress before running
+    if fname.suffix == '.bz2':
+        outname = fname.parent / fname.stem
+        with bz2.BZ2File(fname) as fr, open("/Users/jacksonbe3/repos/mrfConverter/Red2.mrf", "wb+") as fw:
+            shutil.copyfileobj(fr, fw, length=100000000)  # 100 MB chunks
+        fname=outname
+    cvtMrf(fname, extractframes=args.exfr, savevid=args.vid, crf=args.crf)
