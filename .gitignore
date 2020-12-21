@@ -1,3 +1,7 @@
 *.tiff
 *.mrf
 *.mp4
+*-checkpoint.ipynb
+.ipynb_checkpoints/
+Red/
+.DS_Store
