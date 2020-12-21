@@ -2,7 +2,6 @@
 
 import numpy as np
 import cv2
-import matplotlib.pyplot as plt
 from pathlib import Path
 import subprocess
 import argparse
