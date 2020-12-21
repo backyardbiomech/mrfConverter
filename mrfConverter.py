@@ -85,10 +85,11 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     fname=Path(args.filename)
-    #if it's compressed, uncompress before running
+    #if it's compressed, save uncompressed file before running
     if fname.suffix == '.bz2':
         outname = fname.parent / fname.stem
         with bz2.BZ2File(fname) as fr, open("/Users/jacksonbe3/repos/mrfConverter/Red2.mrf", "wb+") as fw:
             shutil.copyfileobj(fr, fw, length=100000000)  # 100 MB chunks
         fname=outname
+
     cvtMrf(fname, extractframes=args.exfr, savevid=args.vid, crf=args.crf)
