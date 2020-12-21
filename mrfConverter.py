@@ -57,14 +57,14 @@ def cvtMrf(fpath, extractframes=True, savevid=True, crf=1):
     # get info
     info = mrfInfo(fp)
     nframes = int(info['numFrames'])
-    if extractframes:
+    if extractframes is True:
         for i in range(nframes):
             print("converting frame {} of {}".format(i+1, nframes))
             idata = mrfRead(fpath, i)
             idata = cv2.cvtColor(idata, cv2.COLOR_GRAY2RGB)
             iname = newdir / "frame{:05d}.tiff".format(i)
             cv2.imwrite(str(iname), idata)
-    if savevid:
+    if savevid is True:
         print("converting tiffs to mp4")
         # convert to vid with ffmpeg
 
@@ -83,4 +83,4 @@ if __name__ == "__main__":
     parser.add_argument('-crf', default = 1, type =int, help='compression ratio for video (1-51)')
     args = parser.parse_args()
 
-    cvtMrf(args.filename, args.exfr, args.vid, args.crf)
+    cvtMrf(args.filename, extractframes=args.exfr, savevid=args.vid, crf=args.crf)
