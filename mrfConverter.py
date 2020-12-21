@@ -71,7 +71,7 @@ def cvtMrf(fpath, extractframes=True, savevid=True, crf=1):
 
         istr = str(newdir / 'frame%05d.tiff')
         ostr = str(newdir) + '_c{}.mp4'.format(crf)
-        cmd = 'ffmpeg -i "{}" -y -crf {} -c:v libx264 -vf fps=30 -pix_fmt yuv420p "{}"'.format(istr, crf, ostr)
+        cmd = 'ffmpeg -framerate 30 -i "{}" -y -crf {} -c:v libx264 -r 30 -pix_fmt yuv420p "{}"'.format(istr, crf, ostr)
         print(cmd)
         subprocess.call(cmd, shell=True)
 
